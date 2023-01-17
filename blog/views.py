@@ -27,11 +27,7 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     List of all the posts
     """
-    queryset = Post.objects.all()
+    queryset = Post.objects.filter(status=1).order_by('-created_on')
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly]
-    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
