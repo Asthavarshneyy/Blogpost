@@ -1,33 +1,26 @@
-from blog.serializers import UserSerializer, PostSerializer
-from rest_framework import viewsets
-from django.contrib.auth.models import User
-from rest_framework.response import Response
-from rest_framework.reverse import reverse
-from rest_framework.decorators import api_view, action
-from blog.models import Post
-from rest_framework import permissions, renderers
-from blog.permissions import IsOwnerOrReadOnly
+from .models import Post, Author
+from django.views import generic
+from django.shortcuts import render
 # Create your views here.
 
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'users': reverse('user-list', request=request, format=format),
-        'posts': reverse('post-list', request=request, format=format)
-    })
+def HomeView(request, *args, **kwargs):
+    featured=Post.objects.filter(featured=True, status=1)
+    latest=Post.objects.filter(status=1).order_by('-created_on')
+    context={
+        'object_list': featured,
+        'latest': latest,
+    }
+    return render(request, 'home_view.html', context)
 
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    The list of current users
-    """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class PostDetail(generic.DetailView):
+    model=Post
+    template_name='post_detail.html'
 
-class PostViewSet(viewsets.ModelViewSet):
-    """
-    List of all the posts
-    """
-    queryset = Post.objects.filter(status=1).order_by('-created_on')
-    serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly]
+class PostList(generic.ListView):
+    queryset=Post.objects.filter(status=1).order_by('-created_on')
+    template_name='index.html'
+
+def AboutView(request):
+    return render(request, 'about_view.html')
+
+
