@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>Control Panel</h3>
 <hr>
-<p>
-    Welcome, <small>{{request.user.username}}</small>
-</p>
+<h3>
+    Welcome, <small>{{request.user.username}}
+</h3>
 <hr>
 <a class = "btn btn-danger" href = "{% url 'post:addpost' %}">Start a new Post </a>
 <hr>
@@ -16,6 +15,7 @@
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Created on</th>
+            <th scope="col">Status</th>
             <th scope="col">Last updated on</th>
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
@@ -27,6 +27,7 @@
             <td><a href="{% url 'post:post_detail' post.slug %}">{{post.title}}</a></td>
             <td>{{post.author}}</td>
             <td>{{post.created_on}}</td>
+            <td>{{post.status}}</td>
             <td>{{post.updated_on}}</td>
             <td><a href="{% url 'post:update' post.slug %}" class = "btn btn-danger">Update</a></td>
             <td><a href="{% url 'post:delete' post.slug %}" class = "btn btn-danger">Delete</a> </td>
@@ -36,6 +37,20 @@
           
         </tbody>
       </table>
+<!-- <table class="table">
+  <thead>
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Created on</th>
+        <th scope="col">Last updated on</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+  </thead>
+</table> -->
 {% else %}
 
 <div class = "alert alert-danger">

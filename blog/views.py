@@ -8,11 +8,10 @@ from django.contrib.auth.decorators import login_required
 
 def posts(request):
     keyword = request.GET.get("keyword")
-
     if keyword:
-        posts = Post.objects.filter(title__contains = keyword)
+        posts = Post.objects.filter(title__icontains=keyword, status=1)
         return render(request,"posts.html",{"posts":posts})
-    posts = Post.objects.all()
+    posts = Post.objects.filter(status=1)
 
     return render(request,"posts.html",{"posts":posts})
 def index(request):
@@ -43,8 +42,7 @@ def addPost(request):
         return redirect("post:dashboard")
     return render(request,"addpost.html",{"form":form})
 
-def post_detail(request,slug):
-    #post = Post.objects.filter(id = id).first()   
+def post_detail(request,slug):  
     post = get_object_or_404(Post, slug=slug)
     comments = post.comments.all()
     return render(request,"post_detail.html",{"post":post,"comments":comments })

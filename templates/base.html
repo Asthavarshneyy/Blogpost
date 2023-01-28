@@ -2,7 +2,7 @@
 <html>
 
     <head>
-        <title>Django Central</title>
+        <title>Astha Varshney</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
         <meta name="google" content="notranslate" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -47,9 +47,33 @@
                         <li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="{%url 'about' %}">About</a>
                     </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="{%url 'post:posts' %}">Posts</a>
+                    </ul>
+                    {% if request.user.is_authenticated %}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="{%url 'post:dashboard' %}">Dashboard</a>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="{%url 'user:logout' %}">Logout</a>
+                    </ul>
+                    {% else %}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="{%url 'user:login' %}">Login</a>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="{%url 'user:register' %}">Register</a>
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
-        </nav>
+        </nav> 
+        
         {% block content %}
         <!-- Content Goes here -->
         {% endblock content %}
