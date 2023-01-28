@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class ="row">
+    
+        <div class="col-md-10 offset-md-3">
+            <div class="col-lg-8">
+                <h3>Posts</h3>
+                <hr>
+                </div>
+        </div>
+</div>
+<div class ="row">
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+            <form>
+                 {% csrf_token %} 
+                <input type="text" name = "keyword" class="input-sm" maxlength="64" placeholder="Search...">
+              <button type="submit" class="btn btn-danger">Search</button>
+            </form>
+      </div>
+    </div>
+
+</div>
+
+
+{% if posts %}
+
+{% for post in posts %}
+<div class="row">
+    <div class="col-md-10 offset-md-3">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+      <!-- Title -->
+      <a href="{% url 'post:post_detail' post.slug %}"><h2 class="mt-4">{{post.title}}</h2></a> 
+        
+      <!-- Author -->
+      <p class="lead">
+        
+       published by  {{post.author}} 
+      </p>
+
+      <hr>
+
+      <!-- Date/Time -->
+      <p>{{post.created_on}}</p>
+      <hr>
+
+      <!-- Post Content -->
+      <p class="lead">
+          {{post.content|safe|truncatewords:50}}
+      </p>
+
+      <a href="{% url 'post:post_detail' post.slug %}" class ="btn btn-danger my-3">Continue reading -></a>
+      <hr>
+         
+        </div>
+      </div>
+      </div>
+
+{% endfor %}
+
+
+{% else %}
+<div class ="row">
+    
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+<div class = "alert alert-danger">
+   Post not found
+</div>
+</div>
+</div>
+</div>
+{% endif %}
+
+{% endblock content %}

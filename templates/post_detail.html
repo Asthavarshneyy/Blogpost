@@ -1,16 +1,74 @@
-{% extends 'base.html' %} {% block content %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left  top">
-      <div class="card-body">
-        <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
-        <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
-        <p class="card-text ">{{ object.content | safe }}</p>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+      <!-- Title -->
+      <h3 class="mt-4">{{post.title}}</h3>
+
+      <!-- Author -->
+      <p class="lead">
+        
+        Published by {{post.author}} 
+      </p>
+
+      <hr>
+
+      <!-- Date/Time -->
+      <p>{{post.created_on}}</p>
+
+      <hr>
+
+      <!-- Post Content -->
+      <p class="lead">
+          {{post.content|safe}}
+      </p>
+
+      <hr>
+
+      <h4>Comments {% if comments %}({{comments.count }}){% endif %}</h4>
+      <hr>
+      {% if comments %}
+      {% for comment in comments  %}
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0">{{ comment.comment_author}}</h5>
+            {{comment.comment_date}} <br>
+            {{comment.comment_content}}
+          </div>
+        </div>
+      {% endfor %}
+      
+      
+      {% else %}
+      <div class ="alert alert-danger">
+        There are no comments on this post, be the first to comment!
+      </div>
+      {% endif %}
+
+      <div class="card my-4 container">
+          <h5 class="card-header">Add Comment:</h5>
+          <div class="card-body">
+            <form method = "post" action = "{% url 'post:comment' post.slug %}">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label for="formGroupExampleInput">Name</label>
+                  <input name = "comment_author" type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter your name">
+              </div>
+              <div class="form-group">
+                  <label for="formGroupExampleInput">Comment</label>
+                <textarea name = "comment_content" class="form-control" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-danger my-3">Add</button>
+            </form>
+          </div>
       </div>
     </div>
-    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
-  </div>
+        
 </div>
-
 {% endblock content %}
