@@ -7,22 +7,9 @@ class LoginForm(forms.Form):
     password = forms.CharField(label = "Password",widget = forms.PasswordInput)
 
 
-class RegisterForm(forms.Form):
-    username = forms.CharField(max_length = 50,label = "Username")
-    password = forms.CharField(max_length=20,label = "Password",widget = forms.PasswordInput)
-    confirm = forms.CharField(max_length=20,label ="Confirm password",widget = forms.PasswordInput)
+class RegisterForm(UserCreationForm):
+    email=forms.EmailField(max_length=200, help_text='Required')
+    class Meta:
+        model=User
+        fields=('username', 'email', 'password1', 'password2')
     
-    def clean(self):
-        username = self.cleaned_data.get("username")
-        password = self.cleaned_data.get("password")
-        confirm = self.cleaned_data.get("confirm")
-
-        if password and confirm and password != confirm:
-            raise forms.ValidationError("Wrong password")
-
-        values = {
-            "username" : username,
-            "password" : password
-        }
-        return values
-

@@ -14,11 +14,8 @@ def posts(request):
     posts = Post.objects.filter(status=1)
 
     return render(request,"posts.html",{"posts":posts})
-def index(request):
-    return render(request,"index.html")
-    
-def about(request):
-    return render(request,"about.html")
+
+
 
 @login_required(login_url = "user:login")
 def dashboard(request):

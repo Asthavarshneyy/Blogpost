@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     'rest_framework',
     'ckeditor',
+    'user',
     'crispy_forms',
 ]
 
@@ -111,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -127,3 +128,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#settings for uses configuration via email for registration
+EMAIL_USE_TLS = True  
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_HOST_USER = 'youremail@gmail.com'  
+EMAIL_HOST_PASSWORD = 'yourpassword'  
+EMAIL_PORT = 587  
+
+#to POST a form containing a CSRF 
+CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com','https://*.127.0.0.1']

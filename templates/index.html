@@ -29,12 +29,5 @@
     </div>
 </header>
 
-<p>
-    {% if request.user.is_authenticated %}
-            Logged In, {{request.user.username}}
-    {% else %}
-            Not Logged In
-    {% endif %}
 
-</p>
 {%endblock%}
