@@ -9,5 +9,5 @@
 <li> Comment Option <img src="https://github.com/Asthavarshneyy/Blogpost/blob/Iteration-5/Demo%20Photos/Comment.png?raw=true" >
 <li> Dashboard <img src="https://github.com/Asthavarshneyy/Blogpost/blob/Iteration-5/Demo%20Photos/Dashboard.png?raw=true" >
 <li>Start a New Post <img src="https://github.com/Asthavarshneyy/Blogpost/blob/Iteration-5/Demo%20Photos/Create.png?raw=true" >
-<li> Update and Delete <img src="https://github.com/Asthavarshneyy/Blogpost/blob/Iteration-5/Demo%20Photos/Update.png?raw=true" >
+<li> Update and Delete <img src="https://github.com/Asthavarshneyy/Blogpost/blob/Iteration-5/Demo%20Photos/update.png?raw=true" >
 <li> Status of a Post <img src="https://github.com/Asthavarshneyy/Blogpost/blob/Iteration-5/Demo%20Photos/Status.png?raw=true" >
