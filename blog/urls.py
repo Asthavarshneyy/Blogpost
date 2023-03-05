@@ -1,4 +1,5 @@
-from django.urls import path
+
+from django.urls import path, re_path
 from . import views
 app_name = "post"
 
@@ -10,6 +11,6 @@ urlpatterns = [
     path('delete/<slug:slug>',views.deletePost,name = "delete"),
     path('',views.posts,name = "posts"),
     path('comment/<slug:slug>',views.addComment,name = "comment"),
-    
-]
+    path('post/<slug:slug>/preference/<int:userpreference>', views.postpreference, name='preference')
+   ]
 

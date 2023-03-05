@@ -27,7 +27,7 @@
             <td><a href="{% url 'post:post_detail' post.slug %}">{{post.title}}</a></td>
             <td>{{post.author}}</td>
             <td>{{post.created_on}}</td>
-            <td>{{post.status}}</td>
+            <td>{{post.get_status_display}}</td>
             <td>{{post.updated_on}}</td>
             <td><a href="{% url 'post:update' post.slug %}" class = "btn btn-danger">Update</a></td>
             <td><a href="{% url 'post:delete' post.slug %}" class = "btn btn-danger">Delete</a> </td>

@@ -12,21 +12,32 @@
 
       <!-- Author -->
       <p class="lead">
-        
         Published by {{post.author}} 
       </p>
-
       <hr>
 
       <!-- Date/Time -->
       <p>{{post.created_on}}</p>
-
       <hr>
 
       <!-- Post Content -->
       <p class="lead">
           {{post.content|safe}}
       </p>
+
+      <hr>
+
+      <a href="#" onClick="document.getElementById('likebutton').submit()">Like</a> {{post.likes}}   |   <a href="#" onClick="document.getElementById('dislikebutton').submit()">Dislike</a> {{post.dislikes}}
+
+      <form id="likebutton" method="POST" action="{% url 'post:preference' slug=post.slug userpreference=1 %}">
+      {% csrf_token %}
+      <input type="hidden">
+      </form>
+
+      <form id="dislikebutton" method="POST" action="{% url 'post:preference' slug=post.slug userpreference=2 %}">
+      {% csrf_token %}
+      <input type="hidden">
+      </form>
 
       <hr>
 

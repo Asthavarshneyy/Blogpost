@@ -1,11 +1,12 @@
 from django.views import generic
-from .models import Post, Comment
+from .models import Post, Comment, Preference
 from django.shortcuts import render,redirect,get_object_or_404,reverse
 from .forms import PostForm
 from django.contrib import messages
 from django.template.defaultfilters import slugify
 from django.contrib.auth.decorators import login_required
 
+@login_required(login_url = "user:login")
 def posts(request):
     keyword = request.GET.get("keyword")
     if keyword:
@@ -17,6 +18,90 @@ def posts(request):
 
 
 
+@login_required(login_url = "user:login")
+def postpreference(request, slug, userpreference):
+        
+        if request.method == "POST":
+                post= get_object_or_404(Post, slug=slug)
+
+                obj=''
+
+                valueobj=''
+
+                try:
+                        obj= Preference.objects.get(user= request.user, post= post)
+
+                        valueobj= obj.value #value of userpreference
+
+
+                        valueobj= int(valueobj)
+
+                        userpreference= int(userpreference)
+                
+                        if valueobj != userpreference:
+                                obj.delete()
+
+
+                                upref= Preference()
+                                upref.user= request.user
+
+                                upref.post= post
+
+                                upref.value= userpreference
+
+
+                                if userpreference == 1 and valueobj != 1:
+                                        post.likes += 1
+                                        post.dislikes -=1
+                                elif userpreference == 2 and valueobj != 2:
+                                        post.dislikes += 1
+                                        post.likes -= 1
+                                
+
+                                upref.save()
+
+                                post.save()
+                                return redirect(reverse("post:post_detail",kwargs={"slug":slug}))
+
+                        elif valueobj == userpreference:
+                                obj.delete()
+                        
+                                if userpreference == 1:
+                                        post.likes -= 1
+                                elif userpreference == 2:
+                                        post.dislikes -= 1
+
+                                post.save()
+                                return redirect(reverse("post:post_detail",kwargs={"slug":slug}))
+                
+                except Preference.DoesNotExist:
+                        upref= Preference()
+
+                        upref.user= request.user
+
+                        upref.post= post
+
+                        upref.value= userpreference
+
+                        userpreference= int(userpreference)
+
+                        if userpreference == 1:
+                                post.likes += 1
+                        elif userpreference == 2:
+                                post.dislikes +=1
+
+                        upref.save()
+
+                        post.save()                            
+                        return redirect(reverse("post:post_detail",kwargs={"slug":slug}))
+
+
+        else:
+                post= get_object_or_404(Post, slug=slug)
+                return redirect(reverse("post:post_detail",kwargs={"slug":slug}))
+        
+
+        
 @login_required(login_url = "user:login")
 def dashboard(request):
     posts = Post.objects.filter(author = request.user)

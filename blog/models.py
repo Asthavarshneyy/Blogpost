@@ -16,6 +16,8 @@ class Post(models.Model):
     content = RichTextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    likes=models.IntegerField(default=0)
+    dislikes=models.IntegerField(default=0)
 
     class Meta:
         ordering = ['-created_on']
@@ -27,7 +29,24 @@ class Post(models.Model):
         if not self.slug:
             self.slug=slugify(self.title)
         return super(Post, self).save(*args, **kwargs)
-        
+    
+VALUE= (
+    (1,"Like"),
+    (2,"Dislike")
+)
+
+class Preference(models.Model):
+    user= models.ForeignKey(User, on_delete= models.CASCADE)
+    post= models.ForeignKey(Post, on_delete= models.CASCADE)
+    value= models.IntegerField(choices=VALUE) #1: like 2: dislike
+    date= models.DateTimeField(auto_now= True)
+    
+    def __str__(self):
+        return str(self.user) + ':' + str(self.post) +':' + str(self.value)
+
+    class Meta:
+       unique_together = ("user", "post", "value")     
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete = models.CASCADE,related_name="comments")
