@@ -1,4 +1,6 @@
 <h2>Blogpost</h2>
+
+<h3> ER Diagram of the Web App: <img src="https://github.com/Asthavarshneyy/Blogpost/blob/main/Demo%20Photos/BlogPost_ER.png?raw=true" ></h3>
 <h4>Features included in the web app are as follows:</h4>
 <ol>
 <li> Login and Register <img src="https://github.com/Asthavarshneyy/Blogpost/blob/main/Demo%20Photos/Login.png?raw=true" ></li>
