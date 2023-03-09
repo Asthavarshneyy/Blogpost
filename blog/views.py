@@ -1,5 +1,7 @@
 from django.views import generic
 from .models import Post, Comment, Preference
+from user.models import Profile
+from django.contrib.auth.models import User
 from django.shortcuts import render,redirect,get_object_or_404,reverse
 from .forms import PostForm
 from django.contrib import messages
@@ -156,14 +158,14 @@ def deletePost(request,slug):
 
     return redirect("post:dashboard")
 
+@login_required(login_url = "user:login")
 def addComment(request,slug):
     post = get_object_or_404(Post, slug=slug)
 
     if request.method == "POST":
-        comment_author = request.POST.get("comment_author")
         comment_content = request.POST.get("comment_content")
 
-        newComment = Comment(comment_author  = comment_author, comment_content = comment_content)
+        newComment = Comment(comment_author  = request.user, comment_content = comment_content)
 
         newComment.post = post
 

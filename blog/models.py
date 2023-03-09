@@ -50,7 +50,7 @@ class Preference(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete = models.CASCADE,related_name="comments")
-    comment_author = models.CharField(max_length=50)
+    comment_author = models.ForeignKey(User, on_delete= models.CASCADE)
     comment_content = models.CharField(max_length = 200)
     comment_date = models.DateTimeField(auto_now=True)
     def __str__(self):
