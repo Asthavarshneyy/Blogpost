@@ -1,0 +1,12 @@
+<h2>BlogPost: A Robust Django-powered Blogging Platform with CRUD Functionality</h2>
+<br>
+
+The blog post project is a full-featured web-based application where users can create accounts, write and publish blog posts, like or dislike them, and comment on posts written by other users. The project is built using Django, a Python web framework. The front end uses HTML and CSS.
+<br><br>The web app has a home view that displays the most recent blog posts, sorted by date. Users can click on a blog post to read it and search for blog posts using keywords. The functionality includes a search bar on all pages and returns a list of relevant blog posts.
+<br><br>Users must provide their name, email address, and password to create an account. Once logged in, they can write blog posts and publish them on the website. It includes a robust authentication and authorization system that allows users to create accounts, log in, and log out securely. Users must be logged in to create, edit, or delete their blog posts or comments.
+<br><br>The blog post editor is a simple cktext editor that allows users to format their posts using Markdown syntax. Markdown is a lightweight markup language that is easy to learn and use, and it provides users with a quick and easy way to add formatting to their posts. The editor includes features like bold and italic text, headings, lists, and code blocks. 
+<br><br>Users can create new blog posts and save them as drafts before publishing. The post editor includes a "Save as Draft" button that allows users to save their work in progress without publishing it. When a user publishes a post, it is added to the list of recent posts on the home page.
+<br><br>Users can comment on blog posts written by other users. Comments are displayed below the blog post, with the most recent ones at the top.
+<br><br>The website also includes a dashboard view of their blog posts. Here, Users can edit their blog posts. The post editor has an "Update" button that allows users to change the post. Users can delete their blog posts as well. The dashboard includes a "Delete" button for every post that will enable users to delete the post. 
+<br><br>The website also has an admin interface that allows the site owner to manage the content on the site. The admin interface includes tools for managing users, blog posts, and comments.
+<br><br>Overall, the blog post project provides a platform for users to share their thoughts and ideas with others. It is a simple but powerful application demonstrating Django's capabilities as a web framework.
